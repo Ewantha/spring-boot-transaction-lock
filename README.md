@@ -16,7 +16,7 @@ Implement transaction locking. This will not allow operations on record while a 
 
 <hr>
 
-## Prerequiresits
+## Prerequisites
 
 Build the application using maven.
 Connect the application to a database and execute SQL db/db_init.sql
