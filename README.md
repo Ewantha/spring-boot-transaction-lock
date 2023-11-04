@@ -1,2 +1,15 @@
 # spring-boot-transaction-lock
-Demo transaction locks
+
+This is a sample repository to demonstrate transaction locking in Spring Boot.
+
+## Use Case
+
+User can perform credit and debit transactions using the System.
+
+### Problem
+
+A credit and debit transaction performed at the same time on record is giving us incorrect results.
+
+### Solution
+
+Implement transaction locking. This will not allow operations on record while a transaction is already in progress.
