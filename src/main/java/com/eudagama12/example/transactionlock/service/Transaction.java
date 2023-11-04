@@ -1,10 +1,17 @@
 package com.eudagama12.example.transactionlock.service;
 
+import java.util.Date;
+
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
+import com.eudagama12.example.transactionlock.entity.Account;
 import com.eudagama12.example.transactionlock.repository.AccountRepository;
 
 import jakarta.annotation.PostConstruct;
+import jakarta.transaction.Transactional;
+import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 
 @Service
@@ -20,7 +27,49 @@ public class Transaction {
     @PostConstruct
     public void init() {
         log.info("List of Accounts: {}", accountRepository.findAll().toString());
-        
+    }
+
+    private Account getAccount(int id) {
+        if (!accountRepository.existsById(id)) {
+            log.info("Invalid account id: {}", id);
+            return null;
+        }
+
+        Account account = accountRepository.findById(id).get();
+
+        return account;
+    }
+
+    @Async
+    @Transactional
+    @SneakyThrows
+    public void credit(int id, double amount) {
+        log.info("Credit Thread: {}", Thread.currentThread().getName());
+        Thread.sleep(1000);
+
+        Account account = getAccount(id);
+
+        account.setAmount(account.getAmount() + amount);
+        account.setUpdateTime(new Date());
+        account = accountRepository.save(account);
+
+        log.info("Credit Transaction Completed: {}", account);
+    }
+
+    @Async
+    @Transactional
+    @SneakyThrows
+    public void debit(int id, double amount) {
+        log.info("Debit Thread: {}", Thread.currentThread().getName());
+        Thread.sleep(1000);
+
+        Account account = getAccount(id);
+
+        account.setAmount(account.getAmount() - amount);
+        account.setUpdateTime(new Date());
+        account = accountRepository.save(account);
+
+        log.info("Debit Transaction Completed: {}", account);
     }
     
 }

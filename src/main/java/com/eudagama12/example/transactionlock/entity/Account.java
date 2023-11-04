@@ -16,7 +16,7 @@ import lombok.ToString;
 public class Account {
     
     @Id
-    private int id;
+    private int id; //Assume this is the account number
 
     private double amount;
 
