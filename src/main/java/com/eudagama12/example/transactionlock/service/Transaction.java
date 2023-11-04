@@ -28,7 +28,8 @@ public class Transaction {
     public void init() {
         log.info("List of Accounts: {}", accountRepository.findAll().toString());
     }
-
+    
+    // Method to get account
     private Account getAccount(int id) {
         if (!accountRepository.existsById(id)) {
             log.info("Invalid account id: {}", id);
@@ -45,7 +46,7 @@ public class Transaction {
     @SneakyThrows
     public void credit(int id, double amount) {
         log.info("Credit Thread: {}", Thread.currentThread().getName());
-        Thread.sleep(1000);
+        Thread.sleep(1000); // Thread sleep will simulate other operations(e.g. validations) occuring in the transaction.
 
         Account account = getAccount(id);
 
@@ -61,7 +62,7 @@ public class Transaction {
     @SneakyThrows
     public void debit(int id, double amount) {
         log.info("Debit Thread: {}", Thread.currentThread().getName());
-        Thread.sleep(1000);
+        Thread.sleep(1000); // Thread sleep will simulate other operations(e.g. validations) occuring in the transaction.
 
         Account account = getAccount(id);
 

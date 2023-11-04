@@ -13,3 +13,14 @@ A credit and debit transaction performed at the same time on record is giving us
 ### Solution
 
 Implement transaction locking. This will not allow operations on record while a transaction is already in progress.
+
+<hr>
+
+## Prerequiresits
+
+Build the application using maven.
+Connect the application to a database and execute SQL db/db_init.sql
+
+## Code Walkthrough
+
+The application will start from the scheduler which will create two simultaneous transactions

@@ -16,6 +16,7 @@ public class TransactionScheduler {
         this.transaction = transaction;
     }
 
+    // Scheduler will create two transactions occuring at the same time.
     @Scheduled(fixedDelay = 60000)
     public void init() {
         transaction.credit(12011995, 20000);
