@@ -19,6 +19,9 @@ public class AsyncConfig {
         this.taskExecutor = taskExecutor;
     }
 
+    /**
+     * Log Async details
+     */
     @PostConstruct
     public void logAsyncConfig() {
         ThreadPoolTaskExecutor executor = (ThreadPoolTaskExecutor) taskExecutor;

@@ -25,7 +25,7 @@ public class Transaction {
 
     @PostConstruct
     public void init() {
-        log.info("List of Accounts: {}", accountRepository.findAll().toString());
+        log.info("List of Accounts: {}", accountRepository.findAll());
     }
     
     // Method to get account
@@ -35,9 +35,7 @@ public class Transaction {
             return null;
         }
 
-        Account account = accountRepository.findById(id).get();
-
-        return account;
+        return accountRepository.findById(id).get();
     }
 
     @Async
@@ -49,6 +47,8 @@ public class Transaction {
         Thread.sleep(1000); // Thread sleep will simulate other operations(e.g. validations) occuring in the transaction.
 
         Account account = getAccount(id);
+
+        if (account == null) return;
 
         account.setAmount(account.getAmount() + amount);
         account.setUpdateTime(new Date());
@@ -66,6 +66,8 @@ public class Transaction {
         Thread.sleep(1000); // Thread sleep will simulate other operations(e.g. validations) occuring in the transaction.
 
         Account account = getAccount(id);
+
+        if (account == null) return;
 
         account.setAmount(account.getAmount() - amount);
         account.setUpdateTime(new Date());

@@ -9,8 +9,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 
-/*
- * Sample account table
+/**
+ * Sample Account Table to store transaction details
  */
 @Entity
 @Getter
