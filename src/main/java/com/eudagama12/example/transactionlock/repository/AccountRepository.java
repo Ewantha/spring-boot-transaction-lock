@@ -12,6 +12,6 @@ import java.util.Optional;
 @Repository
 public interface AccountRepository extends CrudRepository<Account, Integer> {
 
-    @Lock(LockModeType.PESSIMISTIC_WRITE)    //Add transaction lock
+    @Lock(LockModeType.PESSIMISTIC_READ)    //Add transaction lock. Pessimistic write will work on this case, but using Pessimistic read to demonstrate Spring Retry
     Optional<Account> findById(Integer integer);
 }
