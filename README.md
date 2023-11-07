@@ -13,14 +13,20 @@ A credit and debit transaction performed at the same time on record is giving us
 ### Solution
 
 Implement transaction locking. This will not allow operations on record while a transaction is already in progress.
+This will fix anytype of simultaneous transactions giving incorrect results.
 
 <hr>
 
 ## Prerequisites
 
-Build the application using maven.
-Connect the application to a database and execute SQL db/db_init.sql
+- Require a SQL database (E.g. localhost)
+- Execute SQL in db/db_init.sql
+- Update datasource configuration in application.properties and connect the application to the database.
 
 ## Code Walkthrough
 
-The application will start from the scheduler which will create two simultaneous transactions
+- The flow will be initiated from the scheduler which will create two simultaneous transactions.
+- Application is designed as a multithreaded application and will run credit and/or debit operations asynchronously.
+- Pessimistic read lock will lock the record for read operations until the transaction is completed.
+- Any transaction attempting to read the record while locked will throw CannotAcquireLockException.
+- Spring Retry is used to retry methods throwing CannotAcquireLockException.

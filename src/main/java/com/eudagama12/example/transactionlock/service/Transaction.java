@@ -44,7 +44,7 @@ public class Transaction {
     @Retryable(retryFor = CannotAcquireLockException.class)
     public void credit(int id, double amount) {
         log.info("Credit Thread: {}", Thread.currentThread().getName());
-        Thread.sleep(1000); // Thread sleep will simulate other operations(e.g. validations) occuring in the transaction.
+        Thread.sleep(1000); // Thread sleep will simulate other operations(e.g. validations) occurring in the transaction.
 
         Account account = getAccount(id);
 
@@ -63,7 +63,7 @@ public class Transaction {
     @Retryable(retryFor = CannotAcquireLockException.class)
     public void debit(int id, double amount) {
         log.info("Debit Thread: {}", Thread.currentThread().getName());
-        Thread.sleep(1000); // Thread sleep will simulate other operations(e.g. validations) occuring in the transaction.
+        Thread.sleep(1000); // Thread sleep will simulate other operations(e.g. validations) occurring in the transaction.
 
         Account account = getAccount(id);
 
